@@ -10,9 +10,22 @@ jobs:
       - name: Check if dev
         if: ${{ github.ref_name == 'main' }}
         run: |
-          echo "this is dev."
+          echo "DEPLOYMENT_TARGET=dev" >> $GITHUB_ENV
           
       - name: Check if stg
         if: ${{ startsWith(github.ref_name, 'release') }}
         run: |
-          echo "this is stg."
+          echo "DEPLOYMENT_TARGET=stg" >> $GITHUB_ENV
+          
+      - name: Check if prd
+        if: ${{ github.ref_type == 'tag' && startsWith(github.ref_name, 'v') }}
+        run: |
+          echo "DEPLOYMENT_TARGET=prd" >> $GITHUB_ENV
+          
+      - name: check env
+        run: echo "${{ env.DEPLOYMENT_TARGET }}"
+        
+      - name: define env in step
+        env:
+          OVERRIDE_TARGET: ${{ env.DEPLOYMENT_TARGET }}
+        run: echo ${OVERRIDE_TARGET}
