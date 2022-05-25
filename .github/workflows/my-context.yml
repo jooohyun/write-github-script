@@ -1,0 +1,13 @@
+name: Study github actions context
+
+on: push
+
+jobs:
+  define-outputs:
+    name: define-outputs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if dev
+        if: ${{ github.ref_name == 'main' }}
+        run: |
+          echo "this is dev."
