@@ -2,6 +2,9 @@ name: Study github actions context
 
 on: push
 
+env:
+  DEPLOYMENT_TARGET: prd
+
 jobs:
   define-outputs:
     name: define-outputs
