@@ -11,3 +11,8 @@ jobs:
         if: ${{ github.ref_name == 'main' }}
         run: |
           echo "this is dev."
+          
+      - name: Check if stg
+        if: ${{ startsWith(github.ref_name, 'release') }}
+        run: |
+          echo "this is stg."
