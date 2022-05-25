@@ -16,3 +16,8 @@ jobs:
         if: ${{ startsWith(github.ref_name, 'release') }}
         run: |
           echo "this is stg."
+          
+      - name: Check if prd
+        if: ${{ github.ref_type == 'tag' && startsWith(github.ref_name, 'v') }}
+        run: |
+          echo "this is prd."
