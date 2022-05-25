@@ -2,9 +2,6 @@ name: Study github actions context
 
 on: push
 
-env:
-  DEPLOYMENT_TARGET: prd
-
 jobs:
   define-outputs:
     name: define-outputs
@@ -24,13 +21,10 @@ jobs:
         if: ${{ github.ref_type == 'tag' && startsWith(github.ref_name, 'v') }}
         run: |
           echo "DEPLOYMENT_TARGET=prd" >> $GITHUB_ENV
-  deploy:
-    name: deploy
-    runs-on: ubuntu-latest
-    needs: define-outputs
-    steps:
+          
       - name: check env
         run: echo "${{ env.DEPLOYMENT_TARGET }}"
+        
       - name: define env in step
         env:
           OVERRIDE_TARGET: ${{ env.DEPLOYMENT_TARGET }}
